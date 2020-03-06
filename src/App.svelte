@@ -20,31 +20,45 @@
   }
 </script>
 
-<button on:click={handleClick}>
-	generate random menu item
-</button>
-
-{#await randomItem}
-  <div class="image-container" in:fade out:fade>
-    <img src="images/taco.png" class="spin" alt="taco" />
-  </div>
-{:then item}
-  {#if item}
-    <div class="container" in:fly={{ x: 500 }} out:fly={{ x: -300 }}>
-      <Item item={item} />
+<div class="overlay">
+  {#await randomItem}
+    <div class="image-container" in:fade out:fade>
+      <img src="images/taco.png" class="spin" alt="taco" />
     </div>
-  {/if}
-{:catch error}
-  <p>An error occurd while grabbing this item. Please try again!</p>
-{/await}
+  {:then item}
+    {#if item}
+      <div class="item-container" in:fly={{ x: 500 }} out:fly={{ x: -300 }}>
+        <Item item={item} />
+      </div>
+    {/if}
+  {:catch error}
+    <p>An error occurd while grabbing this item. Please try again!</p>
+  {/await}
+
+  <button on:click={handleClick}>
+    Generate Random Menu Item
+  </button>
+</div>
 
 <style>
+  :global(body) {
+    background-image: url('/images/background.jpg');
+    background-repeat: repeat;
+    padding: 0;
+  }
+
+  .overlay {
+    background-color: rgba(255, 255, 255, 0.35);
+    width: 100vw;
+    height: 100vh;
+  }
+
   .image-container {
-    width: 80vw;
-    margin: 0 auto;
+    width: 250px;
+    margin: auto auto;
     position: fixed;
-    top: 10vh;
-    left: 10vw;
+    top: calc(50vh - 125px);
+    left: calc(50vw - 125px);
   }
 
   .image-container img {
@@ -65,6 +79,36 @@
     }
     to {
       transform: rotate(360deg);
+    }
+  }
+
+  .item-container {
+    padding: 25px;
+    margin: 0 0 10vh 0;
+    overflow-y: auto;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+    height: 7vh;
+    position: fixed;
+    bottom: 0;
+    margin: 0;
+    cursor: pointer;
+
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: rgb(66, 184, 221);
+    border: 0 transparent;
+  }
+
+  @media screen and (min-width: 800px) {
+    .item-container {
+      justify-content: center;
     }
   }
 </style>

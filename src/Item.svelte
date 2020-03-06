@@ -2,40 +2,42 @@
   export let item;
 
   function titleCase(input) {
-    const words = input.split(' ');
-    let output = '';
-    words.forEach(word => output += word[0].toUpperCase() + word.substring(1));
-    return output;
+    const words = input.split(/\s|-/);
+    const titleCasedWords = [];
+    words.forEach(word => titleCasedWords.push(word[0].toUpperCase() + word.substring(1)));
+    return titleCasedWords.join(' ');
   }
 </script>
 
-<h1>{item.title}</h1>
-<h2>Menu Category: {titleCase(item.category)}</h2>
+<div>
+  <h1>{item.title}</h1>
+  <h2>Menu Category: {titleCase(item.category)}</h2>
 
-<h3>Item Ingredients</h3>
-<ul id="default-items">
-  {#each item.includedItems as includedItem}
-    <li class="kept">{includedItem}</li>
-  {/each}
+  <h3>Item Ingredients</h3>
+  <ul id="default-items">
+    {#each item.includedItems as includedItem}
+      <li class="kept">{includedItem}</li>
+    {/each}
 
-  {#each item.removedItems as removedItem}
-    <li class="removed">{removedItem}</li>
-  {/each}
-</ul>
+    {#each item.removedItems as removedItem}
+      <li class="removed">{removedItem}</li>
+    {/each}
+  </ul>
 
-<h3>Addons</h3>
-<ul id="addons">
-  {#each item.addons as addon}
-    <li>{addon}</li>
-  {/each}
-</ul>
+  <h3>Addons</h3>
+  <ul id="addons">
+    {#each item.addons as addon}
+      <li>{addon}</li>
+    {/each}
+  </ul>
 
-<h3>Sauces</h3>
-<ul id="sauces">
-  {#each item.sauces as sauce}
-    <li>{sauce}</li>
-  {/each}
-</ul>
+  <h3>Sauces</h3>
+  <ul id="sauces">
+    {#each item.sauces as sauce}
+      <li>{sauce}</li>
+    {/each}
+  </ul>
+</div>
 
 <style>
   ul {
@@ -112,18 +114,11 @@
     margin: auto;
   }
 
-</style>
-
-<!-- li {
-  &:before {
-    content: '';
-    display: inline-block;
-    height: 1em;
-    width: 1em;
-    background-image: url(http://placehold.it/32?text=fallback); // Fallback PNG
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/93/Tango-bullet.svg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-right:0.5em;   
+  @media screen and (min-width: 800px) {
+    div {
+      border: 1px black solid;
+      padding: 3rem;
+    }
   }
-} -->
+
+</style>
