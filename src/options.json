@@ -1,0 +1,46 @@
+{
+  "categories": [
+      "New",
+      "Tacos",
+      "Burritos",
+      "Quesadillas",
+      "Nachos",
+      "Value Menu",
+      "Power Menu",
+      "Vegetarian",
+      "Breakfast"
+  ],
+  "addons": [
+      "3 Cheese Blend",
+      "Beans",
+      "Black Beans",
+      "Chicken",
+      "Fritos®",
+      "Jalapeño Peppers",
+      "Lettuce",
+      "Onions",
+      "Potatoes",
+      "Red Strips",
+      "Seasoned Beef",
+      "Seasoned Fries",
+      "Seasoned Rice",
+      "Steak",
+      "Tomatoes",
+      "Shredded Chicken",
+      "Cheese",
+      "Bacon",
+      "Sausage Crumbles"
+  ],
+  "sauces": [
+      "Avocado Ranch Sauce",
+      "Chipotle Sauce",
+      "Creamy Jalapeño Sauce",
+      "Guacamole",
+      "Mexican Pizza Sauce",
+      "Red Sauce",
+      "Spicy Ranch",
+      "Nacho Cheese Sauce",
+      "Pico De Gallo",
+      "Reduced Fat Sour Cream"
+  ]
+}
