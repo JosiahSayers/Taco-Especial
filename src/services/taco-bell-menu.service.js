@@ -38,7 +38,7 @@ const menuService = {
       }
     });
 
-    return fetch('http://localhost:3000/random/single', {
+    return fetch('/random/single', {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
