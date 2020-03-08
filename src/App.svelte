@@ -8,6 +8,7 @@
   let displayOptions = false;
 
   let formData = {
+    allowItemRemoval: true,
     categories: {},
     addons: {},
     sauces: {}

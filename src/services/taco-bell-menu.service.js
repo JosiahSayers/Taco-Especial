@@ -9,7 +9,8 @@ const menuService = {
       alwaysIncludeAddons: [],
       alwaysIncludeSauces: [],
       excludeAddons: [],
-      excludeSauces: []
+      excludeSauces: [],
+      allowItemRemoval: formData.allowItemRemoval
     };
     
     const categories = Object.keys(formData.categories);
