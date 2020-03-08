@@ -28,7 +28,6 @@
 
   async function handleClick() {
     displayOptions = false;
-    console.log(formData);
     randomItem = fetchRandomItem()
   }
 
