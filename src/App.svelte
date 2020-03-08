@@ -5,7 +5,7 @@
   let randomItem;
 
   async function fetchRandomItem() {
-    const res = await fetch('http://localhost:3000/random/single');
+    const res = await fetch('/random/single');
     const json = await res.json();
 
     if (res.ok) {
@@ -15,8 +15,8 @@
     }
   }
 
-  function handleClick() {
-    randomItem = fetchRandomItem()
+  async function handleClick() {
+    randomItem = await fetchRandomItem()
   }
 </script>
 
@@ -35,7 +35,7 @@
     <p>An error occurd while grabbing this item. Please try again!</p>
   {/await}
 
-  <button on:click={handleClick}>
+  <button id="random-single-button" on:click={handleClick}>
     Generate Random Menu Item
   </button>
 </div>
