@@ -2,21 +2,6 @@
   export let formData;
   import * as options from "./options.json";
 
-  initializeObject(options.categories, formData.categories);
-  initializeObject(options.addons, formData.addons);
-  initializeObject(options.sauces, formData.sauces);
-
-  function initializeObject(optionsArray, formDataObject) {
-    optionsArray.forEach(option => {
-      if (
-        formDataObject[option.toLowerCase()] === null ||
-        formDataObject[option.toLowerCase()] === undefined
-      ) {
-        formDataObject[option.toLowerCase()] = true;
-      }
-    });
-  }
-
   function setAllFormValues(object, value) {
     const keys = Object.keys(object);
     keys.forEach(key => {

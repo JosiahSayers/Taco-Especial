@@ -3,6 +3,8 @@
   import Options from './Options.svelte';
   import { fly, fade } from 'svelte/transition';
   import menuService from './services/taco-bell-menu.service.js';
+  import initializeObject from './services/options-form-builder.js';
+  import * as options from "./options.json";
 
   let randomItem;
   let displayOptions = false;
@@ -13,6 +15,10 @@
     addons: {},
     sauces: {}
   };
+
+  initializeObject(options.categories, formData.categories);
+  initializeObject(options.addons, formData.addons);
+  initializeObject(options.sauces, formData.sauces);
 
   async function fetchRandomItem() {
     const res = await menuService.randomItemWithParams(formData);
