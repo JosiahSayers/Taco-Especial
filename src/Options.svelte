@@ -1,6 +1,6 @@
 <script>
   export let formData;
-  import * as options from "./options.json";
+  export let options;
 
   function setAllFormValues(object, value) {
     const keys = Object.keys(object);

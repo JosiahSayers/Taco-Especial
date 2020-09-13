@@ -1,10 +1,10 @@
 <script>
-  import Item from './Item.svelte';
-  import Options from './Options.svelte';
-  import { fly, fade } from 'svelte/transition';
-  import menuService from './services/taco-bell-menu.service.js';
-  import initializeObject from './services/options-form-builder.js';
-  import * as options from "./options.json";
+  import Item from "./Item.svelte";
+  import Options from "./Options.svelte";
+  import { fly, fade } from "svelte/transition";
+  import menuService from "./services/taco-bell-menu.service.js";
+  import initializeObject from "./services/options-form-builder.js";
+  import MenuOptionsService from "./services/menu-options.service.js";
 
   let randomItem;
   let displayOptions = false;
@@ -15,10 +15,14 @@
     addons: {},
     sauces: {}
   };
+  let options;
 
-  initializeObject(options.categories, formData.categories);
-  initializeObject(options.addons, formData.addons);
-  initializeObject(options.sauces, formData.sauces);
+  async function initializeOptions() {
+    options = await MenuOptionsService.getOptions();
+    initializeObject(options.categories, formData.categories);
+    initializeObject(options.addons, formData.addons);
+    initializeObject(options.sauces, formData.sauces);
+  }
 
   async function fetchRandomItem() {
     const res = await menuService.randomItemWithParams(formData);
@@ -34,46 +38,19 @@
 
   async function handleClick() {
     displayOptions = false;
-    randomItem = fetchRandomItem()
+    randomItem = fetchRandomItem();
   }
 
   function toggleOptions() {
     displayOptions = !displayOptions;
   }
+
+  initializeOptions();
 </script>
-
-<div class="overlay">
-  {#await randomItem}
-    <div class="image-container" in:fade out:fade>
-      <img src="images/taco.png" class="spin" alt="taco" />
-    </div>
-  {:then item}
-    {#if item && !displayOptions}
-      <div class="item-container" in:fly={{ x: 500 }} out:fly={{ x: -300 }}>
-        <Item item={item} />
-      </div>
-    {/if}
-  {:catch error}
-    <p>An error occurd while grabbing this item. Please try again!</p>
-  {/await}
-
-  {#if displayOptions}
-    <div class="options-container" in:fade out:fade>
-      <Options formData={formData}></Options>
-    </div>
-  {/if}
-
-  <div class="buttons">
-    <button id="random-single-button" on:click={handleClick}>
-      Generate Random Menu Item
-    </button>
-    <button id="options-button" on:click={toggleOptions}>Search Options</button>
-  </div>
-</div>
 
 <style>
   :global(body) {
-    background-image: url('/images/background.jpg');
+    background-image: url("/images/background.jpg");
     background-repeat: repeat;
     padding: 0;
   }
@@ -161,7 +138,7 @@
 
     color: white;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    background: rgb(66,184,221);
+    background: rgb(66, 184, 221);
     border: 0 transparent;
   }
 
@@ -171,3 +148,32 @@
     }
   }
 </style>
+
+<div class="overlay">
+  {#await randomItem}
+    <div class="image-container" in:fade out:fade>
+      <img src="images/taco.png" class="spin" alt="taco" />
+    </div>
+  {:then item}
+    {#if item && !displayOptions}
+      <div class="item-container" in:fly={{ x: 500 }} out:fly={{ x: -300 }}>
+        <Item {item} />
+      </div>
+    {/if}
+  {:catch error}
+    <p>An error occurd while grabbing this item. Please try again!</p>
+  {/await}
+
+  {#if displayOptions}
+    <div class="options-container" in:fade out:fade>
+      <Options {formData} {options} />
+    </div>
+  {/if}
+
+  <div class="buttons">
+    <button id="random-single-button" on:click={handleClick}>
+      Generate Random Menu Item
+    </button>
+    <button id="options-button" on:click={toggleOptions}>Search Options</button>
+  </div>
+</div>

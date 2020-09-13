@@ -1,9 +1,9 @@
 const menuService = {
-  getRandomItem: async() => {
+  getRandomItem: async () => {
     return await fetch('localhost:3000/random/single');
   },
 
-  randomItemWithParams: async(formData) => {
+  randomItemWithParams: async (formData) => {
     const body = {
       categories: [],
       alwaysIncludeAddons: [],
@@ -12,7 +12,7 @@ const menuService = {
       excludeSauces: [],
       allowItemRemoval: formData.allowItemRemoval
     };
-    
+
     const categories = Object.keys(formData.categories);
     categories.forEach(category => {
       if (formData.categories[category]) {
@@ -46,7 +46,13 @@ const menuService = {
         'Content-Type': 'application/json'
       }
     });
-  }
+  },
+
+  getCategories: async () => (await fetch('/menu/categories')).json(),
+
+  getAddons: async () => (await fetch('/menu/addons')).json(),
+
+  getSauces: async () => (await fetch('/menu/sauces')).json()
 }
 
 export default menuService;
