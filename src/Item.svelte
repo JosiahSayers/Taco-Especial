@@ -114,10 +114,14 @@
     margin: auto;
   }
 
+  div {
+    padding: 3rem;
+    background-color: rgba(255, 255, 255, .3);
+  }
+
   @media screen and (min-width: 800px) {
     div {
       border: 1px black solid;
-      padding: 3rem;
     }
   }
 
